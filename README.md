@@ -10,4 +10,6 @@ Alguns desafios que surgiram no decorrer desse projeto:
 O resultado visual final ficou dessa forma:
 ![alt_text](https://github.com/vitoleite/ipca_grafico_dados/blob/main/output/figura.jpeg)
 
+**Fonte de dados:** https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?=&t=downloads
+
 _Nota: Nesse exato momento que estou publicando esse repositório eu descobri a existência do site dados.gov, que inclusive tem o conjunto de dados do IPCA. https://dados.gov.br/dataset/ia-indice-nacional-de-precos-ao-consumidor-amplo-ipca_
