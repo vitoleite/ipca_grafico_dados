@@ -8,4 +8,4 @@ Alguns desafios que surgiram no decorrer desse projeto:
 O resultado visual final ficou dessa forma:
 ![alt_text](https://github.com/vitoleite/ipca_grafico_dados/blob/main/output/figura_final.jpeg)
 
-**Fonte de dados:** https://sidra.ibge.gov.br/tabela/1737
+**Fonte de dados:** [SIDRA IBGE](https://sidra.ibge.gov.br/tabela/1737)
