@@ -1,4 +1,7 @@
+import os
+from pathlib import Path
 import pandas as pd
+from pandas import DataFrame
 import numpy as np
 import wget
 from datetime import datetime
@@ -15,15 +18,17 @@ class dataFormat():
 
 
     def dataDownload(self):
-        wget.download(url=self.url, out=f'data/ipca_{self.ano_mes_formatado}.csv')
-        print('Os dados foram baixados!')
+        if os.path.exists(f'data/ipca_{self.ano_mes_formatado}.csv'):
+            return True
+        else:
+            return wget.download(url=self.url, out=f'data/ipca_{self.ano_mes_formatado}.csv')
 
 
-    def dataTransform(self) -> pd.DataFrame:
+    def dataTransform(self) -> DataFrame:
 
-        ipca_df = pd.read_csv(self.file_path, sep=',', encoding='utf-8-sig', skiprows=2, low_memory=False)
+        ipca_df : DataFrame = pd.read_csv(self.file_path, sep=',', encoding='utf-8-sig', skiprows=2, low_memory=False)
 
-        column_rename = {
+        column_rename : dict[str, str] = {
             'Unnamed: 1': 'Território',
             'IPCA - Número-índice (base: dezembro de 1993 = 100) (Número-índice)': 'Número-índice',
             'IPCA - Variação mensal (%)': 'Variação mensal (%)', 'IPCA - Variação acumulada em 3 meses (%)': 'Variação 3 meses (%)',
@@ -34,23 +39,23 @@ class dataFormat():
         ipca_df.rename(columns=column_rename, inplace=True)
 
         # Substituindo as pontuações
-        ipca_df = ipca_df.replace('...', 0)
+        ipca_df : DataFrame = ipca_df.replace('...', 0)
 
         # Retirando as linhas de fonte e notas de rodapé
-        ipca_df = ipca_df.iloc[:-12]
+        ipca_df : DataFrame = ipca_df.iloc[:-12]
 
-        meses = {'janeiro': 1, 'fevereiro': 2, 'março': 3, 'abril': 4, 'maio': 5, 'junho': 6, 'julho': 7,
+        meses : dict[str, int] = {'janeiro': 1, 'fevereiro': 2, 'março': 3, 'abril': 4, 'maio': 5, 'junho': 6, 'julho': 7,
             'agosto': 8, 'setembro': 9, 'outubro': 10, 'novembro': 11, 'dezembro': 12}
         
         # Dividindo a coluna de Mês para obter informação do Ano
         ipca_df[['Mês', 'Ano']] = ipca_df['Mês'].str.split(' ', expand=True)
 
-        # Preenchendo a coluna Mes_num de acordo com as chaves da variavel mes
-        ipca_df['Mes_num'] = ''
-        ipca_df['Mes_num'] = ipca_df['Mês'].map(meses)
+        # Preenchendo a coluna Número do Mês de acordo com as chaves da variavel mes
+        ipca_df['Número do Mês'] = ''
+        ipca_df['Número do Mês'] = ipca_df['Mês'].map(meses)
 
         # Escolhendo colunas a serem visualizadas
-        ipca_df = ipca_df[['Ano', 'Mes_num', 'Mês', 'Número-índice', 'Variação mensal (%)',
+        ipca_df = ipca_df[['Ano', 'Número do Mês', 'Mês', 'Número-índice', 'Variação mensal (%)',
             'Variação 3 meses (%)', 'Variação 6 meses (%)',
             'Variação anual (%)', 'Variação 12 meses (%)']]
 
