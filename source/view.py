@@ -1,18 +1,19 @@
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+from pandas import DataFrame
 from .transform import dataFormat
 
-def data_copy() -> pd.DataFrame:
-    df_original = dataFormat().dataTransform()
-    df_copy = df_original.copy()
+def data_copy() -> DataFrame:
+    df_original : DataFrame = dataFormat().dataTransform()
+    df_copy     : DataFrame = df_original.copy()
 
     # Realizando um filtro para selecionar informações posteriores a 1999 para apenas o mês de Dezembro
     df_copy = df_copy[(df_copy['Ano'] > 1999) & (df_copy['Mês'].str.contains('dezembro'))]
     return df_copy
 
 def view_graph():
-    df_copy = data_copy()
+    df_copy : DataFrame = data_copy()
     # Utilizando algumas features do Plotly para criar um gráfico
 
     # Passando o DataFrame como fonte de dados e escolhendo os eixos devidos
