@@ -1,0 +1,4 @@
+include output/
+include data/
+include *.csv
+include *.jpeg
