@@ -1,0 +1,9 @@
+.ipynb_checkpoints
+ipca_serie_historica.egg-info/
+dist/
+build/
+output/
+__pycache__/
+ipca_project/
+*.vscode/
+*.pytest_cache/
